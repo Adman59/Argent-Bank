@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import AdminRouter from './pages/Admin/AdminRouter.jsx'
-import AuthRouter from './pages/Auth/AuthRouter.jsx'
-import PublicRouter from './pages/Public/PublicRouter.jsx'
-import AuthGuard from './_helpers/AuthGuard.jsx'
+import AdminRouter from '@/pages/Admin/AdminRouter.jsx'
+import AuthRouter from '@/pages/Auth/AuthRouter.jsx'
+import PublicRouter from '@/pages/Public/PublicRouter.jsx'
+import AuthGuard from '@/_helpers/AuthGuard.jsx'
 
 
 function App() {
