@@ -1,22 +1,32 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import Account from "@/components/Account/Account";
 import UserIntro from "@/components/UserIntro/UserIntro";
+import auth_service from '@/_services/account.service';
 import { userService } from "@/_services/user.service";
 
 const User = () => {
-    const [userData, setUserData] = useState(null);
 
-    // Je déclenche l'appel au compte du client connecté au moment de l'affichage du composant
-    useEffect(() => {
-        userService.getUser("user01") // Remplacez "user01" par l'ID de l'utilisateur que vous souhaitez récupérer
-            .then((res) => setUserData(res))
-            .catch((err) => console.log(err));
-    }, []);
+    const dispatch = useDispatch();
+    const token= useSelector((state)=> state.login.token);
+    const userEmail= useSelector((state)=> state.user.email);
+
+    console.log(userEmail);
+
+    const accountUser = userService.getUser();
+
+    console.log(accountUser);
+
+    useEffect(()=>{
+        if(token !==null ){
+          dispatch(auth_service.userProfile(token))
+        }
+      },[token, dispatch])
 
     return (
         <>
             <UserIntro />
-            {userData && (
+            {/* {userData && (
                 <div key={userData.userId}>
                     <h2>User ID: {userData.userId}</h2>
                     {userData.account.map((account) => (
@@ -28,7 +38,7 @@ const User = () => {
                         />
                     ))}
                 </div>
-            )}
+            )} */}
         </>
     );
 };

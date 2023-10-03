@@ -1,8 +1,8 @@
-import { USER_MAIN_DATA } from "@/assets/api/accountinfo.js";
+import accountinfo from "@/assets/api/accountinfo.json";
 
 const getUser = (userId) => {
     return new Promise((resolve, reject) => {
-        const user = USER_MAIN_DATA.find((user) => user.userId === userId);
+        const user = accountinfo.find((user) => user.use === userId);
         if (user) {
             resolve(user);
         } else {
