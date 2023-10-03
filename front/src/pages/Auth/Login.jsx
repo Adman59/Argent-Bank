@@ -9,6 +9,7 @@ const Login = () => {
 
     const par = useSelector(state => state.Auth);
     console.log(par);
+    
 
     let navigate = useNavigate();
     // const [login, setLogin] = useState('');
