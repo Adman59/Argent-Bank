@@ -38,9 +38,7 @@ const Header = () => {
         isAuth === false ?
           <div>
             <Link className="main-nav-item" to="/login">
-              <i className="fa fa-user-circle"></i>
-              Sign In
-            </Link>
+              <i className="fa fa-user-circle"></i> Sign In </Link>
           </div> 
           : isAuth === true ? 
           <div className='main-nav-items'>

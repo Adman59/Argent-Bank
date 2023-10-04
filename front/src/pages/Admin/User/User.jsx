@@ -1,34 +1,35 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
 import Account from "@/components/Account/Account";
 import UserIntro from "@/components/UserIntro/UserIntro";
-import auth_service from '@/_services/account.service';
 import { userService } from "@/_services/user.service";
+import { useSelector } from 'react-redux';
 
 const User = () => {
+    const [userData, setUserData] = useState(null);
+    const userEmail = useSelector((state) => state.user.email);
 
-    const dispatch = useDispatch();
-    const token= useSelector((state)=> state.login.token);
-    const userEmail= useSelector((state)=> state.user.email);
+    const [userLogged, setUserLogged] = useState(null);
 
-    console.log(userEmail);
+    useEffect(() => {
 
-    const accountUser = userService.getUser();
-
-    console.log(accountUser);
-
-    useEffect(()=>{
-        if(token !==null ){
-          dispatch(auth_service.userProfile(token))
+        if (userEmail === "tony@stark.com") {
+            setUserLogged("user01");
+        } else if (userEmail === "steve@rogers.com") {
+            setUserLogged("user02");
         }
-      },[token, dispatch])
+
+        if (userLogged) {
+            userService.getUser(userLogged)
+                .then((res) => setUserData(res))
+                .catch((err) => console.log(err));
+        }
+    }, [userEmail, userLogged]);
 
     return (
         <>
             <UserIntro />
-            {/* {userData && (
+            {userData && (
                 <div key={userData.userId}>
-                    <h2>User ID: {userData.userId}</h2>
                     {userData.account.map((account) => (
                         <Account
                             key={account.id}
@@ -38,7 +39,7 @@ const User = () => {
                         />
                     ))}
                 </div>
-            )} */}
+            )}
         </>
     );
 };
